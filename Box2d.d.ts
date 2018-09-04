@@ -1,4 +1,4 @@
-module Box2D.Common {
+declare module Box2D.Common {
     export class Color {
         constructor(rr: number, gg: number, bb: number);
         set(rr: number, gg: number, bb: number): void;
@@ -34,10 +34,10 @@ module Box2D.Common {
         static ANGULAR_SLEEP_TOLERANCE: number;
         static mixFriction(friction1: number, friction2: number): number;
         static mixRestitution(restitution1: number, restitution2: number): number;
-        static assert(a: bool): void;
+        static assert(a: boolean): void;
     }
 }
-module Box2D.Common.Math {
+declare module Box2D.Common.Math {
     export class Mat22 {
         col1: Box2D.Common.Math.Vec2;
         col2: Box2D.Common.Math.Vec2;
@@ -74,7 +74,7 @@ module Box2D.Common.Math {
         static VEC2_ZERO: Box2D.Common.Math.Vec2;
         static MAT22_IDENTITY: Box2D.Common.Math.Mat22;
         static TRANSFORM_IDENTITY: Box2D.Common.Math.Transform;
-        static isValid(x: number): bool;
+        static isValid(x: number): boolean;
         static dot(a: Box2D.Common.Math.Vec2, b: Box2D.Common.Math.Vec2): number;
         static crossVV(a: Box2D.Common.Math.Vec2, b: Box2D.Common.Math.Vec2): number;
         static crossVF(a: Box2D.Common.Math.Vec2, s: number): Box2D.Common.Math.Vec2;
@@ -104,7 +104,7 @@ module Box2D.Common.Math {
         static random(): number;
         static randomRange(lo: number, hi: number): number;
         static nextPowerOfTwo(x: number): number;
-        static isPowerOfTwo(x: number): bool;
+        static isPowerOfTwo(x: number): boolean;
     }
     export class Sweep {
         localCenter: Box2D.Common.Math.Vec2;
@@ -151,7 +151,7 @@ module Box2D.Common.Math {
         length(): number;
         lengthSquared(): number;
         normalize(): number;
-        isValid(): bool;
+        isValid(): boolean;
     }
     export class Vec3 {
         x: number;
@@ -169,7 +169,7 @@ module Box2D.Common.Math {
         multiply(a: number): void;
     }
 }
-module Box2D.Collision {
+declare module Box2D.Collision {
     export class RayCastInput {
         p1: Box2D.Common.Math.Vec2;
         p2: Box2D.Common.Math.Vec2;
@@ -182,12 +182,12 @@ module Box2D.Collision {
     export class AABB {
         lowerBound: Box2D.Common.Math.Vec2;
         upperBound: Box2D.Common.Math.Vec2;
-        isValid(): bool;
+        isValid(): boolean;
         getCenter(): Box2D.Common.Math.Vec2;
         getExtents(): Box2D.Common.Math.Vec2;
-        contains(aabb: Box2D.Collision.AABB): bool;
-        rayCast(output: Box2D.Collision.RayCastOutput, input: Box2D.Collision.RayCastInput): bool;
-        testOverlap(other: Box2D.Collision.AABB): bool;
+        contains(aabb: Box2D.Collision.AABB): boolean;
+        rayCast(output: Box2D.Collision.RayCastOutput, input: Box2D.Collision.RayCastInput): boolean;
+        testOverlap(other: Box2D.Collision.AABB): boolean;
         static combine(aabb1: Box2D.Collision.AABB, aab: Box2D.Collision.AABB): Box2D.Collision.AABB;
         combine(aabb1: Box2D.Collision.AABB, aab: Box2D.Collision.AABB): void;
     }
@@ -199,14 +199,14 @@ module Box2D.Collision {
         pairs: {[s: string]: any;};
         next: Box2D.Collision.Proxy;
         userData: any;
-        isValid(): bool;
+        isValid(): boolean;
     }
     export class Bound {
         value: number;
         proxy: Box2D.Collision.Proxy;
         stabbingCount: number;
-        isLower(): bool;
-        isUpper(): bool;
+        isLower(): boolean;
+        isUpper(): boolean;
         swap(b: Box2D.Collision.Bound): void;
     }
     export class BoundValues {
@@ -217,16 +217,16 @@ module Box2D.Collision {
     export interface IBroadPhase {
     }
     export class BroadPhase implements IBroadPhase {
-        static S_VALIDATE: bool;
+        static S_VALIDATE: boolean;
         static INVALID: number;
         static NULL_EDGE: number;
         constructor(worldAABB: Box2D.Collision.AABB);
-        inRange(aabb: Box2D.Collision.AABB): bool;
+        inRange(aabb: Box2D.Collision.AABB): boolean;
         createProxy(aabb: Box2D.Collision.AABB, userData: any): any;
         destroyProxy(proxy_: any): void;
         moveProxy(proxy_: any, aabb: Box2D.Collision.AABB, displacement: Box2D.Common.Math.Vec2): void;
         updatePairs(callback: (data1: any, data2: any) => void): void;
-        testOverlap(proxyA: any, proxyB: any): bool;
+        testOverlap(proxyA: any, proxyB: any): boolean;
         getUserData(proxy: any): any;
         getFatAABB(proxy_: any): Box2D.Collision.AABB;
         getProxyCount(): number;
@@ -234,7 +234,7 @@ module Box2D.Collision {
         validate(): void;
         rebalance(iterations: number): void;
         rayCast(callback: () => any, input: Box2D.Collision.RayCastInput): void;
-        testOverlapBound(b: Box2D.Collision.BoundValues, p: Box2D.Collision.Proxy): bool;
+        testOverlapBound(b: Box2D.Collision.BoundValues, p: Box2D.Collision.Proxy): boolean;
         static binarySearch(bounds: Box2D.Collision.Bound[], count: number, value: number): number;
     }
     export class Features {
@@ -264,7 +264,7 @@ module Box2D.Collision {
         static collidePolygons(manifold: Box2D.Collision.Manifold, polyA: Box2D.Collision.Shapes.PolygonShape, xfA: Box2D.Common.Math.Transform, polyB: Box2D.Collision.Shapes.PolygonShape, xfB: Box2D.Common.Math.Transform): void;
         static collideCircles(manifold: Box2D.Collision.Manifold, circle1: Box2D.Collision.Shapes.CircleShape, xf1: Box2D.Common.Math.Transform, circle2: Box2D.Collision.Shapes.CircleShape, xf2: Box2D.Common.Math.Transform): void;
         static collidePolygonAndCircle(manifold: Box2D.Collision.Manifold, polygon: Box2D.Collision.Shapes.PolygonShape, xf1: Box2D.Common.Math.Transform, circle: Box2D.Collision.Shapes.CircleShape, xf2: Box2D.Common.Math.Transform): void;
-        static testOverlap(a: Box2D.Collision.AABB, b: Box2D.Collision.AABB): bool;
+        static testOverlap(a: Box2D.Collision.AABB, b: Box2D.Collision.AABB): boolean;
     }
     export class ContactPoint {
         shape1: Box2D.Collision.Shapes.Shape;
@@ -285,7 +285,7 @@ module Box2D.Collision {
         proxyB: Box2D.Collision.DistanceProxy;
         transformA: Box2D.Common.Math.Transform;
         transformB: Box2D.Common.Math.Transform;
-        useRadii: bool;
+        useRadii: boolean;
     }
     export class DistanceOutput {
         pointA: Box2D.Common.Math.Vec2;
@@ -307,23 +307,23 @@ module Box2D.Collision {
         constructor();
         createProxy(aabb: Box2D.Collision.AABB, userData: any): Box2D.Collision.DynamicTreeNode;
         destroyProxy(proxy: Box2D.Collision.DynamicTreeNode): void;
-        moveProxy(proxy: Box2D.Collision.DynamicTreeNode, aabb: Box2D.Collision.AABB, displacement: Box2D.Common.Math.Vec2): bool;
+        moveProxy(proxy: Box2D.Collision.DynamicTreeNode, aabb: Box2D.Collision.AABB, displacement: Box2D.Common.Math.Vec2): boolean;
         rebalance(iterations: number): void;
         getFatAABB(proxy: Box2D.Collision.DynamicTreeNode): Box2D.Collision.AABB;
         getUserData(proxy: Box2D.Collision.DynamicTreeNode): any;
-        query(callback: (n: DynamicTreeNode) => bool, aabb: Box2D.Collision.AABB): void;
+        query(callback: (n: DynamicTreeNode) => boolean, aabb: Box2D.Collision.AABB): void;
         rayCast(callback: (i: RayCastInput, n: DynamicTreeNode) => number, input: Box2D.Collision.RayCastInput): void;
     }
     export class DynamicTreeBroadPhase implements IBroadPhase {
         createProxy(aabb: Box2D.Collision.AABB, userData: any): any;
         destroyProxy(proxy: any): void;
         moveProxy(proxy: any, aabb: Box2D.Collision.AABB, displacement: Box2D.Common.Math.Vec2): void;
-        testOverlap(proxyA: any, proxyB: any): bool;
+        testOverlap(proxyA: any, proxyB: any): boolean;
         getUserData(proxy: any): any;
         getFatAABB(proxy: any): Box2D.Collision.AABB;
         getProxyCount(): number;
         updatePairs(callback: (d1: any, d2: any) => void): void;
-        query(callback: (n: DynamicTreeNode) => bool, aabb: Box2D.Collision.AABB): void;
+        query(callback: (n: DynamicTreeNode) => boolean, aabb: Box2D.Collision.AABB): void;
         rayCast(callback: (i: RayCastInput, n: DynamicTreeNode) => number, input: Box2D.Collision.RayCastInput): void;
         validate(): void;
         rebalance(iterations: number): void;
@@ -334,7 +334,7 @@ module Box2D.Collision {
         parent: Box2D.Collision.DynamicTreeNode;
         child1: Box2D.Collision.DynamicTreeNode;
         child2: Box2D.Collision.DynamicTreeNode;
-        isLeaf(): bool;
+        isLeaf(): boolean;
     }
     export class DynamicTreePair {
         proxyA: Box2D.Collision.DynamicTreeNode;
@@ -380,12 +380,12 @@ module Box2D.Collision {
         static PAIR_FINAL: number;
         setBuffered(): void;
         clearBuffered(): void;
-        isBuffered(): bool;
+        isBuffered(): boolean;
         setRemoved(): void;
         clearRemoved(): void;
-        isRemoved(): bool;
+        isRemoved(): boolean;
         setFinal(): void;
-        isFinal(): bool;
+        isFinal(): boolean;
     }
     export class PairManager {
         constructor();
@@ -402,7 +402,7 @@ module Box2D.Collision {
     export class Segment {
         p1: Box2D.Common.Math.Vec2;
         p2: Box2D.Common.Math.Vec2;
-        testSegment(lambda: any[], normal: Box2D.Common.Math.Vec2, segment: Box2D.Collision.Segment, maxLambda: number): bool;
+        testSegment(lambda: any[], normal: Box2D.Common.Math.Vec2, segment: Box2D.Collision.Segment, maxLambda: number): boolean;
         extend(aabb: Box2D.Collision.AABB): void;
         extendForward(aabb: Box2D.Collision.AABB): void;
         extendBackward(aabb: Box2D.Collision.AABB): void;
@@ -430,7 +430,7 @@ module Box2D.Collision {
         initialize(manifold: Box2D.Collision.Manifold, xfA: Box2D.Common.Math.Transform, radiusA: number, xfB: Box2D.Common.Math.Transform, radiusB: number): void;
     }
 }
-module Box2D.Collision.Shapes {
+declare module Box2D.Collision.Shapes {
     export class MassData {
         mass: number;
         center: Box2D.Common.Math.Vec2;
@@ -439,7 +439,7 @@ module Box2D.Collision.Shapes {
     export class EdgeChainDef {
         vertices: any[];
         vertexCount: number;
-        isALoop: bool;
+        isALoop: boolean;
         constructor();
     }
     export class Shape {
@@ -449,19 +449,19 @@ module Box2D.Collision.Shapes {
         copy(): Box2D.Collision.Shapes.Shape;
         set(other: Box2D.Collision.Shapes.Shape): void;
         getType(): number;
-        testPoint(xf: Box2D.Common.Math.Transform, p: Box2D.Common.Math.Vec2): bool;
-        rayCast(output: Box2D.Collision.RayCastOutput, input: Box2D.Collision.RayCastInput, transform: Box2D.Common.Math.Transform): bool;
+        testPoint(xf: Box2D.Common.Math.Transform, p: Box2D.Common.Math.Vec2): boolean;
+        rayCast(output: Box2D.Collision.RayCastOutput, input: Box2D.Collision.RayCastInput, transform: Box2D.Common.Math.Transform): boolean;
         computeAABB(aabb: Box2D.Collision.AABB, xf: Box2D.Common.Math.Transform): void;
         computeMass(massData: Box2D.Collision.Shapes.MassData, density: number): void;
         computeSubmergedArea(normal: Box2D.Common.Math.Vec2, offset: number, xf: Box2D.Common.Math.Transform, c: Box2D.Common.Math.Vec2): number;
-        static testOverlap(shape1: Box2D.Collision.Shapes.Shape, transform1: Box2D.Common.Math.Transform, shape2: Box2D.Collision.Shapes.Shape, transform2: Box2D.Common.Math.Transform): bool;
+        static testOverlap(shape1: Box2D.Collision.Shapes.Shape, transform1: Box2D.Common.Math.Transform, shape2: Box2D.Collision.Shapes.Shape, transform2: Box2D.Common.Math.Transform): boolean;
         constructor();
     }
     export class CircleShape extends Shape {
         copy(): Box2D.Collision.Shapes.Shape;
         set(other: Box2D.Collision.Shapes.Shape): void;
-        testPoint(transform: Box2D.Common.Math.Transform, p: Box2D.Common.Math.Vec2): bool;
-        rayCast(output: Box2D.Collision.RayCastOutput, input: Box2D.Collision.RayCastInput, transform: Box2D.Common.Math.Transform): bool;
+        testPoint(transform: Box2D.Common.Math.Transform, p: Box2D.Common.Math.Vec2): boolean;
+        rayCast(output: Box2D.Collision.RayCastOutput, input: Box2D.Collision.RayCastInput, transform: Box2D.Common.Math.Transform): boolean;
         computeAABB(aabb: Box2D.Collision.AABB, transform: Box2D.Common.Math.Transform): void;
         computeMass(massData: Box2D.Collision.Shapes.MassData, density: number): void;
         computeSubmergedArea(normal: Box2D.Common.Math.Vec2, offset: number, xf: Box2D.Common.Math.Transform, c: Box2D.Common.Math.Vec2): number;
@@ -472,8 +472,8 @@ module Box2D.Collision.Shapes {
         constructor(radius?: number);
     }
     export class EdgeShape extends Shape {
-        testPoint(transform: Box2D.Common.Math.Transform, p: Box2D.Common.Math.Vec2): bool;
-        rayCast(output: Box2D.Collision.RayCastOutput, input: Box2D.Collision.RayCastInput, transform: Box2D.Common.Math.Transform): bool;
+        testPoint(transform: Box2D.Common.Math.Transform, p: Box2D.Common.Math.Vec2): boolean;
+        rayCast(output: Box2D.Collision.RayCastOutput, input: Box2D.Collision.RayCastInput, transform: Box2D.Common.Math.Transform): boolean;
         computeAABB(aabb: Box2D.Collision.AABB, transform: Box2D.Common.Math.Transform): void;
         computeMass(massData: Box2D.Collision.Shapes.MassData, density: number): void;
         computeSubmergedArea(normal: Box2D.Common.Math.Vec2, offset: number, xf: Box2D.Common.Math.Transform, c: Box2D.Common.Math.Vec2): number;
@@ -486,8 +486,8 @@ module Box2D.Collision.Shapes {
         getDirectionVector(): Box2D.Common.Math.Vec2;
         getCorner1Vector(): Box2D.Common.Math.Vec2;
         getCorner2Vector(): Box2D.Common.Math.Vec2;
-        corner1IsConvex(): bool;
-        corner2IsConvex(): bool;
+        corner1IsConvex(): boolean;
+        corner2IsConvex(): boolean;
         getFirstVertex(xf: Box2D.Common.Math.Transform): Box2D.Common.Math.Vec2;
         getNextEdge(): Box2D.Collision.Shapes.EdgeShape;
         getPrevEdge(): Box2D.Collision.Shapes.EdgeShape;
@@ -507,8 +507,8 @@ module Box2D.Collision.Shapes {
         static asOrientedBox(hx: number, hy: number, center?: Box2D.Common.Math.Vec2, angle?: number): Box2D.Collision.Shapes.PolygonShape;
         setAsEdge(v1: Box2D.Common.Math.Vec2, v2: Box2D.Common.Math.Vec2): void;
         static asEdge(v1: Box2D.Common.Math.Vec2, v2: Box2D.Common.Math.Vec2): Box2D.Collision.Shapes.PolygonShape;
-        testPoint(xf: Box2D.Common.Math.Transform, p: Box2D.Common.Math.Vec2): bool;
-        rayCast(output: Box2D.Collision.RayCastOutput, input: Box2D.Collision.RayCastInput, transform: Box2D.Common.Math.Transform): bool;
+        testPoint(xf: Box2D.Common.Math.Transform, p: Box2D.Common.Math.Vec2): boolean;
+        rayCast(output: Box2D.Collision.RayCastOutput, input: Box2D.Collision.RayCastInput, transform: Box2D.Common.Math.Transform): boolean;
         computeAABB(aabb: Box2D.Collision.AABB, xf: Box2D.Common.Math.Transform): void;
         computeMass(massData: Box2D.Collision.Shapes.MassData, density: number): void;
         computeSubmergedArea(normal: Box2D.Common.Math.Vec2, offset: number, xf: Box2D.Common.Math.Transform, c: Box2D.Common.Math.Vec2): number;
@@ -521,7 +521,7 @@ module Box2D.Collision.Shapes {
         static computeCentroid(vs: Box2D.Common.Math.Vec2[], count: number): Box2D.Common.Math.Vec2;
     }
 }
-module Box2D.Dynamics {
+declare module Box2D.Dynamics {
     export class Body {
         static STATIC_BODY: number;
         static KINEMATIC_BODY: number;
@@ -546,7 +546,7 @@ module Box2D.Dynamics {
         applyForce(force: Box2D.Common.Math.Vec2, point: Box2D.Common.Math.Vec2): void;
         applyTorque(torque: number): void;
         applyImpulse(impulse: Box2D.Common.Math.Vec2, point: Box2D.Common.Math.Vec2): void;
-        split(callback: (f: Fixture) => bool): Box2D.Dynamics.Body;
+        split(callback: (f: Fixture) => boolean): Box2D.Dynamics.Body;
         merge(other: Box2D.Dynamics.Body): void;
         getMass(): number;
         getInertia(): number;
@@ -565,16 +565,16 @@ module Box2D.Dynamics {
         setAngularDamping(angularDamping: number): void;
         setType(type: number): void;
         getType(): number;
-        setBullet(flag: bool): void;
-        isBullet(): bool;
-        setSleepingAllowed(flag: bool): void;
-        setAwake(flag: bool): void;
-        isAwake(): bool;
-        setFixedRotation(fixed: bool): void;
-        isFixedRotation(): bool;
-        setActive(flag: bool): void;
-        isActive(): bool;
-        isSleepingAllowed(): bool;
+        setBullet(flag: boolean): void;
+        isBullet(): boolean;
+        setSleepingAllowed(flag: boolean): void;
+        setAwake(flag: boolean): void;
+        isAwake(): boolean;
+        setFixedRotation(fixed: boolean): void;
+        isFixedRotation(): boolean;
+        setActive(flag: boolean): void;
+        isActive(): boolean;
+        isSleepingAllowed(): boolean;
         getFixtureList(): Box2D.Dynamics.Fixture;
         getJointList(): Box2D.Dynamics.Joints.JointEdge;
         getControllerList(): Box2D.Dynamics.Controllers.ControllerEdge;
@@ -586,7 +586,7 @@ module Box2D.Dynamics {
         constructor(bd: Box2D.Dynamics.BodyDef, world: Box2D.Dynamics.World);
     }
 }
-module Box2D.Dynamics {
+declare module Box2D.Dynamics {
     export class BodyDef {
         type: number;
         position: Box2D.Common.Math.Vec2;
@@ -595,29 +595,29 @@ module Box2D.Dynamics {
         angularVelocity: number;
         linearDamping: number;
         angularDamping: number;
-        allowSleep: bool;
-        awake: bool;
-        fixedRotation: bool;
-        bullet: bool;
-        active: bool;
+        allowSleep: boolean;
+        awake: boolean;
+        fixedRotation: boolean;
+        bullet: boolean;
+        active: boolean;
         userData: any;
         inertiaScale: number;
         constructor();
     }
 }
-module Box2D.Dynamics {
+declare module Box2D.Dynamics {
     export class ContactFilter {
-        shouldCollide(fixtureA: Box2D.Dynamics.Fixture, fixtureB: Box2D.Dynamics.Fixture): bool;
-        rayCollide(userData: any, fixture: Box2D.Dynamics.Fixture): bool;
+        shouldCollide(fixtureA: Box2D.Dynamics.Fixture, fixtureB: Box2D.Dynamics.Fixture): boolean;
+        rayCollide(userData: any, fixture: Box2D.Dynamics.Fixture): boolean;
     }
 }
-module Box2D.Dynamics {
+declare module Box2D.Dynamics {
     export class ContactImpulse {
         normalImpulses: number[];
         tangentImpulses: number[];
     }
 }
-module Box2D.Dynamics {
+declare module Box2D.Dynamics {
     export class ContactListener {
         beginContact(contact: Box2D.Dynamics.Contacts.Contact): void;
         endContact(contact: Box2D.Dynamics.Contacts.Contact): void;
@@ -625,7 +625,7 @@ module Box2D.Dynamics {
         postSolve(contact: Box2D.Dynamics.Contacts.Contact, impulse: Box2D.Dynamics.ContactImpulse): void;
     }
 }
-module Box2D.Dynamics {
+declare module Box2D.Dynamics {
     export class ContactManager {
         constructor();
         addPair(proxyUserDataA: any, proxyUserDataB: any): void;
@@ -634,7 +634,7 @@ module Box2D.Dynamics {
         collide(): void;
     }
 }
-module Box2D.Dynamics {
+declare module Box2D.Dynamics {
     export class DebugDraw {
         static SHAPE_BIT: number;
         static JOINT_BIT: number;
@@ -667,13 +667,13 @@ module Box2D.Dynamics {
         drawTransform(xf: Box2D.Common.Math.Transform): void;
     }
 }
-module Box2D.Dynamics {
+declare module Box2D.Dynamics {
     export class DestructionListener {
         sayGoodbyeJoint(joint: Box2D.Dynamics.Joints.Joint): void;
         sayGoodbyeFixture(fixture: Box2D.Dynamics.Fixture): void;
     }
 }
-module Box2D.Dynamics {
+declare module Box2D.Dynamics {
     export class FilterData {
         categoryBits: number;
         maskBits: number;
@@ -681,20 +681,20 @@ module Box2D.Dynamics {
         copy(): Box2D.Dynamics.FilterData;
     }
 }
-module Box2D.Dynamics {
+declare module Box2D.Dynamics {
     export class Fixture {
         getType(): number;
         getShape(): Box2D.Collision.Shapes.Shape;
-        setSensor(sensor: bool): void;
-        isSensor(): bool;
+        setSensor(sensor: boolean): void;
+        isSensor(): boolean;
         setFilterData(filter: Box2D.Dynamics.FilterData): void;
         getFilterData(): Box2D.Dynamics.FilterData;
         getBody(): Box2D.Dynamics.Body;
         getNext(): Box2D.Dynamics.Fixture;
         getUserData(): any;
         setUserData(data: any): void;
-        testPoint(p: Box2D.Common.Math.Vec2): bool;
-        rayCast(output: Box2D.Collision.RayCastOutput, input: Box2D.Collision.RayCastInput): bool;
+        testPoint(p: Box2D.Common.Math.Vec2): boolean;
+        rayCast(output: Box2D.Collision.RayCastOutput, input: Box2D.Collision.RayCastInput): boolean;
         getMassData(massData?: Box2D.Collision.Shapes.MassData): Box2D.Collision.Shapes.MassData;
         setDensity(density: number): void;
         getDensity(): number;
@@ -706,24 +706,24 @@ module Box2D.Dynamics {
         constructor();
     }
 }
-module Box2D.Dynamics {
+declare module Box2D.Dynamics {
     export class FixtureDef {
         shape: Box2D.Collision.Shapes.Shape;
         userData: any;
         friction: number;
         restitution: number;
         density: number;
-        isSensor: bool;
+        isSensor: boolean;
         filter: Box2D.Dynamics.FilterData;
         constructor();
     }
 }
-module Box2D.Dynamics {
+declare module Box2D.Dynamics {
     export class Island {
         constructor();
         initialize(bodyCapacity: number, contactCapacity: number, jointCapacity: number, allocator: any, listener: Box2D.Dynamics.ContactListener, contactSolver: Box2D.Dynamics.Contacts.ContactSolver): void;
         clear(): void;
-        solve(step: Box2D.Dynamics.TimeStep, gravity: Box2D.Common.Math.Vec2, allowSleep: bool): void;
+        solve(step: Box2D.Dynamics.TimeStep, gravity: Box2D.Common.Math.Vec2, allowSleep: boolean): void;
         solveTOI(subStep: Box2D.Dynamics.TimeStep): void;
         report(constraints: Box2D.Dynamics.Contacts.ContactConstraint[]): void;
         addBody(body: Box2D.Dynamics.Body): void;
@@ -731,22 +731,22 @@ module Box2D.Dynamics {
         addJoint(joint: Box2D.Dynamics.Joints.Joint): void;
     }
 }
-module Box2D.Dynamics {
+declare module Box2D.Dynamics {
     export class TimeStep {
         dt: number;
         inv_dt: number;
         dtRatio: number;
         velocityIterations: number;
         positionIterations: number;
-        warmStarting: bool;
+        warmStarting: boolean;
         set(step: Box2D.Dynamics.TimeStep): void;
     }
 }
-module Box2D.Dynamics {
+declare module Box2D.Dynamics {
     export class World {
         static NEW_FIXTURE: number;
         static LOCKED: number;
-        constructor(gravity: Box2D.Common.Math.Vec2, doSleep: bool);
+        constructor(gravity: Box2D.Common.Math.Vec2, doSleep: boolean);
         setDestructionListener(listener: Box2D.Dynamics.DestructionListener): void;
         setContactFilter(filter: Box2D.Dynamics.ContactFilter): void;
         setContactListener(listener: Box2D.Dynamics.ContactListener): void;
@@ -762,8 +762,8 @@ module Box2D.Dynamics {
         removeController(c: Box2D.Dynamics.Controllers.Controller): void;
         createController(controller: Box2D.Dynamics.Controllers.Controller): Box2D.Dynamics.Controllers.Controller;
         destroyController(controller: Box2D.Dynamics.Controllers.Controller): void;
-        setWarmStarting(flag: bool): void;
-        setContinuousPhysics(flag: bool): void;
+        setWarmStarting(flag: boolean): void;
+        setContinuousPhysics(flag: boolean): void;
         getBodyCount(): number;
         getJointCount(): number;
         getContactCount(): number;
@@ -773,28 +773,28 @@ module Box2D.Dynamics {
         step(dt: number, velocityIterations: number, positionIterations: number): void;
         clearForces(): void;
         drawDebugData(): void;
-        queryAABB(callback: (d: any) => bool, aabb: Box2D.Collision.AABB): void;
-        queryShape(callback: (f: Fixture) => bool, shape: Box2D.Collision.Shapes.Shape, transform?: Box2D.Common.Math.Transform): void;
-        queryPoint(callback: (f: Fixture) => bool, p: Box2D.Common.Math.Vec2): void;
+        queryAABB(callback: (d: any) => boolean, aabb: Box2D.Collision.AABB): void;
+        queryShape(callback: (f: Fixture) => boolean, shape: Box2D.Collision.Shapes.Shape, transform?: Box2D.Common.Math.Transform): void;
+        queryPoint(callback: (f: Fixture) => boolean, p: Box2D.Common.Math.Vec2): void;
         rayCast(callback: (f: Fixture, p: Box2D.Common.Math.Vec2, n: Box2D.Common.Math.Vec2, r: number) => number, point1: Box2D.Common.Math.Vec2, point2: Box2D.Common.Math.Vec2): void;
         rayCastOne(point1: Box2D.Common.Math.Vec2, point2: Box2D.Common.Math.Vec2): Box2D.Dynamics.Fixture;
         rayCastAll(point1: Box2D.Common.Math.Vec2, point2: Box2D.Common.Math.Vec2): Box2D.Dynamics.Fixture[];
         getBodyList(): Box2D.Dynamics.Body;
         getJointList(): Box2D.Dynamics.Joints.Joint;
         getContactList(): Box2D.Dynamics.Contacts.Contact;
-        isLocked(): bool;
+        isLocked(): boolean;
     }
 }
-module Box2D.Dynamics.Contacts {
+declare module Box2D.Dynamics.Contacts {
     export class Contact {
         getManifold(): Box2D.Collision.Manifold;
         getWorldManifold(worldManifold: Box2D.Collision.WorldManifold): void;
-        isTouching(): bool;
-        isContinuous(): bool;
-        setSensor(sensor: bool): void;
-        isSensor(): bool;
-        setEnabled(flag: bool): void;
-        isEnabled(): bool;
+        isTouching(): boolean;
+        isContinuous(): boolean;
+        setSensor(sensor: boolean): void;
+        isSensor(): boolean;
+        setEnabled(flag: boolean): void;
+        isEnabled(): boolean;
         getNext(): Box2D.Dynamics.Contacts.Contact;
         getFixtureA(): Box2D.Dynamics.Fixture;
         getFixtureB(): Box2D.Dynamics.Fixture;
@@ -842,7 +842,7 @@ module Box2D.Dynamics.Contacts {
     export class ContactRegister {
         createFcn: () => any;
         destroyFcn: () => any;
-        primary: bool;
+        primary: boolean;
         pool: Box2D.Dynamics.Contacts.Contact;
         poolCount: number;
     }
@@ -861,7 +861,7 @@ module Box2D.Dynamics.Contacts {
         initVelocityConstraints(step: Box2D.Dynamics.TimeStep): void;
         solveVelocityConstraints(): void;
         finalizeVelocityConstraints(): void;
-        solvePositionConstraints(baumgarte: number): bool;
+        solvePositionConstraints(baumgarte: number): boolean;
     }
     export class CircleContact extends Contact {
         static create(allocator: any): Box2D.Dynamics.Contacts.Contact;
@@ -892,7 +892,7 @@ module Box2D.Dynamics.Contacts {
         reset(fixtureA: Box2D.Dynamics.Fixture, fixtureB: Box2D.Dynamics.Fixture): void;
     }
 }
-module Box2D.Dynamics.Controllers {
+declare module Box2D.Dynamics.Controllers {
     export class Controller {
         step(step: Box2D.Dynamics.TimeStep): void;
         draw(debugDraw: Box2D.Dynamics.DebugDraw): void;
@@ -910,8 +910,8 @@ module Box2D.Dynamics.Controllers {
         velocity: Box2D.Common.Math.Vec2;
         linearDrag: number;
         angularDrag: number;
-        useDensity: bool;
-        useWorldGravity: bool;
+        useDensity: boolean;
+        useWorldGravity: boolean;
         gravity: Box2D.Common.Math.Vec2;
         step(step: Box2D.Dynamics.TimeStep): void;
         draw(debugDraw: Box2D.Dynamics.DebugDraw): void;
@@ -934,7 +934,7 @@ module Box2D.Dynamics.Controllers {
     }
     export class GravityController extends Controller {
         G: number;
-        invSqr: bool;
+        invSqr: boolean;
         step(step: Box2D.Dynamics.TimeStep): void;
     }
     export class TensorDampingController extends Controller {
@@ -944,7 +944,7 @@ module Box2D.Dynamics.Controllers {
         step(step: Box2D.Dynamics.TimeStep): void;
     }
 }
-module Box2D.Dynamics.Joints {
+declare module Box2D.Dynamics.Joints {
     export class Jacobian {
         linearA: Box2D.Common.Math.Vec2;
         angularA: number;
@@ -965,7 +965,7 @@ module Box2D.Dynamics.Joints {
         getNext(): Box2D.Dynamics.Joints.Joint;
         getUserData(): any;
         setUserData(data: any): void;
-        isActive(): bool;
+        isActive(): boolean;
         constructor(def: Box2D.Dynamics.Joints.JointDef);
     }
     export class JointDef {
@@ -973,7 +973,7 @@ module Box2D.Dynamics.Joints {
         userData: any;
         bodyA: Box2D.Dynamics.Body;
         bodyB: Box2D.Dynamics.Body;
-        collideConnected: bool;
+        collideConnected: boolean;
         constructor();
     }
     export class DistanceJoint extends Joint {
@@ -1042,7 +1042,7 @@ module Box2D.Dynamics.Joints {
         next: Box2D.Dynamics.Joints.JointEdge;
     }
 }
-module Box2D.Dynamics.Joints {
+declare module Box2D.Dynamics.Joints {
     export class LineJoint extends Joint {
         getAnchorA(): Box2D.Common.Math.Vec2;
         getAnchorB(): Box2D.Common.Math.Vec2;
@@ -1050,13 +1050,13 @@ module Box2D.Dynamics.Joints {
         getReactionTorque(inv_dt: number): number;
         getJointTranslation(): number;
         getJointSpeed(): number;
-        isLimitEnabled(): bool;
-        enableLimit(flag: bool): void;
+        isLimitEnabled(): boolean;
+        enableLimit(flag: boolean): void;
         getLowerLimit(): number;
         getUpperLimit(): number;
         setLimits(lower: number, upper: number): void;
-        isMotorEnabled(): bool;
-        enableMotor(flag: bool): void;
+        isMotorEnabled(): boolean;
+        enableMotor(flag: boolean): void;
         setMotorSpeed(speed: number): void;
         getMotorSpeed(): number;
         setMaxMotorForce(force: number): void;
@@ -1065,22 +1065,22 @@ module Box2D.Dynamics.Joints {
         constructor(def: Box2D.Dynamics.Joints.LineJointDef);
     }
 }
-module Box2D.Dynamics.Joints {
+declare module Box2D.Dynamics.Joints {
     export class LineJointDef extends JointDef {
         localAnchorA: Box2D.Common.Math.Vec2;
         localAnchorB: Box2D.Common.Math.Vec2;
         localAxisA: Box2D.Common.Math.Vec2;
-        enableLimit: bool;
+        enableLimit: boolean;
         lowerTranslation: number;
         upperTranslation: number;
-        enableMotor: bool;
+        enableMotor: boolean;
         maxMotorForce: number;
         motorSpeed: number;
         constructor();
         initialize(bA: Box2D.Dynamics.Body, bB: Box2D.Dynamics.Body, anchor: Box2D.Common.Math.Vec2, axis: Box2D.Common.Math.Vec2): void;
     }
 }
-module Box2D.Dynamics.Joints {
+declare module Box2D.Dynamics.Joints {
     export class MouseJoint extends Joint {
         getAnchorA(): Box2D.Common.Math.Vec2;
         getAnchorB(): Box2D.Common.Math.Vec2;
@@ -1097,7 +1097,7 @@ module Box2D.Dynamics.Joints {
         constructor(def: Box2D.Dynamics.Joints.MouseJointDef);
     }
 }
-module Box2D.Dynamics.Joints {
+declare module Box2D.Dynamics.Joints {
     export class MouseJointDef extends JointDef {
         target: Box2D.Common.Math.Vec2;
         maxForce: number;
@@ -1106,7 +1106,7 @@ module Box2D.Dynamics.Joints {
         constructor();
     }
 }
-module Box2D.Dynamics.Joints {
+declare module Box2D.Dynamics.Joints {
     export class PrismaticJoint extends Joint {
         getAnchorA(): Box2D.Common.Math.Vec2;
         getAnchorB(): Box2D.Common.Math.Vec2;
@@ -1114,13 +1114,13 @@ module Box2D.Dynamics.Joints {
         getReactionTorque(inv_dt: number): number;
         getJointTranslation(): number;
         getJointSpeed(): number;
-        isLimitEnabled(): bool;
-        enableLimit(flag: bool): void;
+        isLimitEnabled(): boolean;
+        enableLimit(flag: boolean): void;
         getLowerLimit(): number;
         getUpperLimit(): number;
         setLimits(lower: number, upper: number): void;
-        isMotorEnabled(): bool;
-        enableMotor(flag: bool): void;
+        isMotorEnabled(): boolean;
+        enableMotor(flag: boolean): void;
         setMotorSpeed(speed: number): void;
         getMotorSpeed(): number;
         setMaxMotorForce(force: number): void;
@@ -1128,23 +1128,23 @@ module Box2D.Dynamics.Joints {
         constructor(def: Box2D.Dynamics.Joints.PrismaticJointDef);
     }
 }
-module Box2D.Dynamics.Joints {
+declare module Box2D.Dynamics.Joints {
     export class PrismaticJointDef extends JointDef {
         localAnchorA: Box2D.Common.Math.Vec2;
         localAnchorB: Box2D.Common.Math.Vec2;
         localAxisA: Box2D.Common.Math.Vec2;
         referenceAngle: number;
-        enableLimit: bool;
+        enableLimit: boolean;
         lowerTranslation: number;
         upperTranslation: number;
-        enableMotor: bool;
+        enableMotor: boolean;
         maxMotorForce: number;
         motorSpeed: number;
         constructor();
         initialize(bA: Box2D.Dynamics.Body, bB: Box2D.Dynamics.Body, anchor: Box2D.Common.Math.Vec2, axis: Box2D.Common.Math.Vec2): void;
     }
 }
-module Box2D.Dynamics.Joints {
+declare module Box2D.Dynamics.Joints {
     export class PulleyJoint extends Joint {
         getAnchorA(): Box2D.Common.Math.Vec2;
         getAnchorB(): Box2D.Common.Math.Vec2;
@@ -1158,7 +1158,7 @@ module Box2D.Dynamics.Joints {
         constructor(def: Box2D.Dynamics.Joints.PulleyJointDef);
     }
 }
-module Box2D.Dynamics.Joints {
+declare module Box2D.Dynamics.Joints {
     export class PulleyJointDef extends JointDef {
         groundAnchorA: Box2D.Common.Math.Vec2;
         groundAnchorB: Box2D.Common.Math.Vec2;
@@ -1173,7 +1173,7 @@ module Box2D.Dynamics.Joints {
         initialize(bA: Box2D.Dynamics.Body, bB: Box2D.Dynamics.Body, gaA: Box2D.Common.Math.Vec2, gaB: Box2D.Common.Math.Vec2, anchorA: Box2D.Common.Math.Vec2, anchorB: Box2D.Common.Math.Vec2, r: number): void;
     }
 }
-module Box2D.Dynamics.Joints {
+declare module Box2D.Dynamics.Joints {
     export class RevoluteJoint extends Joint {
         getAnchorA(): Box2D.Common.Math.Vec2;
         getAnchorB(): Box2D.Common.Math.Vec2;
@@ -1181,13 +1181,13 @@ module Box2D.Dynamics.Joints {
         getReactionTorque(inv_dt: number): number;
         getJointAngle(): number;
         getJointSpeed(): number;
-        isLimitEnabled(): bool;
-        enableLimit(flag: bool): void;
+        isLimitEnabled(): boolean;
+        enableLimit(flag: boolean): void;
         getLowerLimit(): number;
         getUpperLimit(): number;
         setLimits(lower: number, upper: number): void;
-        isMotorEnabled(): bool;
-        enableMotor(flag: bool): void;
+        isMotorEnabled(): boolean;
+        enableMotor(flag: boolean): void;
         setMotorSpeed(speed: number): void;
         getMotorSpeed(): number;
         setMaxMotorTorque(torque: number): void;
@@ -1195,22 +1195,22 @@ module Box2D.Dynamics.Joints {
         constructor(def: Box2D.Dynamics.Joints.RevoluteJointDef);
     }
 }
-module Box2D.Dynamics.Joints {
+declare module Box2D.Dynamics.Joints {
     export class RevoluteJointDef extends JointDef {
         localAnchorA: Box2D.Common.Math.Vec2;
         localAnchorB: Box2D.Common.Math.Vec2;
         referenceAngle: number;
-        enableLimit: bool;
+        enableLimit: boolean;
         lowerAngle: number;
         upperAngle: number;
-        enableMotor: bool;
+        enableMotor: boolean;
         motorSpeed: number;
         maxMotorTorque: number;
         constructor();
         initialize(bA: Box2D.Dynamics.Body, bB: Box2D.Dynamics.Body, anchor: Box2D.Common.Math.Vec2): void;
     }
 }
-module Box2D.Dynamics.Joints {
+declare module Box2D.Dynamics.Joints {
     export class WeldJoint extends Joint {
         getAnchorA(): Box2D.Common.Math.Vec2;
         getAnchorB(): Box2D.Common.Math.Vec2;
@@ -1219,7 +1219,7 @@ module Box2D.Dynamics.Joints {
         constructor(def: Box2D.Dynamics.Joints.WeldJointDef);
     }
 }
-module Box2D.Dynamics.Joints {
+declare module Box2D.Dynamics.Joints {
     export class WeldJointDef extends JointDef {
         localAnchorA: Box2D.Common.Math.Vec2;
         localAnchorB: Box2D.Common.Math.Vec2;
